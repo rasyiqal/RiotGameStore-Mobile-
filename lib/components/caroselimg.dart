@@ -44,7 +44,7 @@ class _CaroselBuildState extends State<CaroselBuild> {
                   _current = index;
                 });
               },
-              enlargeCenterPage: true,
+              enlargeCenterPage: false,
             ),
             items: imgList
                 .map((item) => Container(

@@ -36,7 +36,7 @@ class _homeScreenState extends State<homeScreen> {
                   Text(
                     'Best Seller This Month',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -46,7 +46,7 @@ class _homeScreenState extends State<homeScreen> {
                       'see all',
                       style: TextStyle(
                         color: Colors.red.shade700,
-                        fontSize: 13,
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -78,7 +78,6 @@ class _homeScreenState extends State<homeScreen> {
         img: 'assets/merch_1.jpg',
         text: 'RockLove Star Guardian "Hope" Locket',
       ),
-      // Tambahkan kartu lainnya di sini
     ];
 
     return Container(
