@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_ver/components/card.dart';
 import 'package:mobile_ver/components/categories.dart';
 
-class saleSacreen extends StatelessWidget {
-  const saleSacreen({super.key});
+class UpcomingScreen extends StatelessWidget {
+  const UpcomingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,9 @@ class saleSacreen extends StatelessWidget {
                 children: [
                   cardLimited(
                       img: 'assets/merch_1.jpg',
-                      text: 'High Noon Senna Gun Necklace'),
+                      text: 'High Noon Senna Gun Necklace',
+                      price: '30.00'
+                      ),
                   cardUtama(
                       img: 'assets/merch_1.jpg',
                       text:
@@ -63,7 +65,9 @@ class saleSacreen extends StatelessWidget {
                       text: 'Arcane x RockLove Firelight Ring'),
                   cardLimited(
                       img: 'assets/merch_1.jpg',
-                      text: 'High Noon Senna Gun Necklace'),
+                      text: 'High Noon Senna Gun Necklace',
+                      price: '30.00',
+                      ),
                   // Add more cardUtama widgets here
                 ],
               ),

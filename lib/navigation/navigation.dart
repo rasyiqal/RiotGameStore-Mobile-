@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:mobile_ver/Pages/HomeScreen.dart';
 import 'package:mobile_ver/Pages/artScreen.dart';
-import 'package:mobile_ver/Pages/collectibleScreen.dart';
-import 'package:mobile_ver/Pages/homeScreen.dart';
 import 'package:mobile_ver/Pages/profileScreen.dart';
-import 'package:mobile_ver/Pages/saleScreen.dart';
+import 'package:mobile_ver/Pages/UpcomingScreen.dart';
 import 'package:mobile_ver/controller/controller.dart';
 
 class Navigation extends StatefulWidget {
@@ -26,15 +25,14 @@ class _NavigationState extends State<Navigation> {
           body: IndexedStack(
             index: controller.tabIndex,
             children: const [
-              homeScreen(),
+              HomeScreen(),
               artScreen(),
-              collectible(),
-              saleSacreen(),
+              UpcomingScreen(),
               profileScreen(),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             currentIndex: controller.tabIndex,
             selectedItemColor: Colors.red,
             unselectedItemColor: Colors.grey,
@@ -42,9 +40,8 @@ class _NavigationState extends State<Navigation> {
             onTap: controller.changeTabIndex,
             items: [
               _bottombarItem(IconlyBold.home, 'Home'),
-              _bottombarItem(IconlyBold.plus, 'Art'),
-              _bottombarItem(IconlyBold.time_square, 'Collection'),
-              _bottombarItem(IconlyBold.chart, 'Sale'),
+              _bottombarItem(IconlyBold.chart, 'Art'),
+              _bottombarItem(IconlyBold.chart, 'Upcoming'),
               _bottombarItem(IconlyBold.profile, 'Profile'),
             ],
           ),

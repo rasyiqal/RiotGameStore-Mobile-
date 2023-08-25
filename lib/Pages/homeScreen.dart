@@ -1,100 +1,115 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_ver/components/card.dart';
 import 'package:mobile_ver/components/caroselimg.dart';
+import 'package:mobile_ver/controller/FetchData.dart';
 
-class homeScreen extends StatefulWidget {
-  const homeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<homeScreen> createState() => _homeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _homeScreenState extends State<homeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
+  late Future<List<dynamic>> _data;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _data = fetchData();
+  }
+
+  Future<List<dynamic>> fetchData() async {
+    try {
+      List<dynamic> fetchedData = await FetchDataApi.fetchData();
+      return fetchedData;
+    } catch (e) {
+      // Handle error
+      print(e.toString());
+      return [];
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            CaroselBuild(),
-            OtherMenu(),
-            Padding(
-              padding: EdgeInsets.only(
-                top: 8,
-                left: 16,
-                right: 16,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Best Seller This Month',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'see all',
+        child: Container(
+          child: Column(
+            children: [
+              CaroselBuild(),
+              OtherMenu(),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 8,
+                  left: 16,
+                  right: 16,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Best Seller This Month',
                       style: TextStyle(
-                        color: Colors.red.shade700,
-                        fontSize: 14,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
-                  ),
-                ],
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'see all',
+                        style: TextStyle(
+                          color: Colors.red.shade700,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            CardBuilder(),
-          ],
+              Container(
+                height: MediaQuery.of(context).size.height,
+                child: Expanded(
+                  child: FutureBuilder<List<dynamic>>(
+                    future: fetchData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        List<dynamic> data = snapshot.data ?? [];
+                        return GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, // Jumlah kolom dalam grid
+                            mainAxisSpacing:
+                                8, // Spasi antara item secara vertikal
+                            crossAxisSpacing:
+                                8, // Spasi antara item secara horizontal
+                            childAspectRatio:
+                                (175 / 300), // Lebar / Tinggi dari cardLimited
+                          ),
+                          itemCount: data.length,
+                          itemBuilder: (context, index) {
+                            Map<String, dynamic> item = data[index];
+                             String imageUrl = 'http://10.0.2.2/phpcrud/upload/${item['C:/xampp/htdocs/phpcrud/upload']}';
+                            return cardLimited(
+                              img: imageUrl,
+                              text: item['nama'],
+                              price: item['notelp'],
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
-
-  Widget CardBuilder() {
-    List<Widget> cardData = [
-      cardLimited(
-        img: 'assets/merch_1.jpg',
-        text: 'High Noon Senna Gun Necklace',
-      ),
-      cardUtama(
-        img: 'assets/merch_1.jpg',
-        text: 'Convergence: A League of Legends Story Collectors Edition',
-      ),
-      cardUtama(
-        img: 'assets/merch_1.jpg',
-        text: 'RockLove Star Guardian "Hope" Locket',
-      ),
-      cardUtama(
-        img: 'assets/merch_1.jpg',
-        text: 'RockLove Star Guardian "Hope" Locket',
-      ),
-    ];
-
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 8.0,
-          crossAxisSpacing: 8.0,
-          childAspectRatio: 0.6,
-        ),
-        itemCount: cardData.length,
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return cardData[index];
-        },
       ),
     );
   }
@@ -186,7 +201,7 @@ class OtherMenu extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 8),
-              Text('Cart', style: TextStyle(color: Colors.white)),
+              Text('Cart', style: TextStyle(color: Colors.red)),
             ],
           ),
           Column(
@@ -212,57 +227,6 @@ class OtherMenu extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget ScrollView() {
-  return Container(
-    margin: EdgeInsets.all(12),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Upcoming',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              'see all',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 24),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              cardLimited(
-                  img: 'assets/merch_1.jpg',
-                  text: 'High Noon Senna Gun Necklace'),
-              cardUtama(
-                  img: 'assets/merch_1.jpg',
-                  text:
-                      'Convergence: A League of Legends Story Collectors Edition'),
-              cardUtama(
-                  img: 'assets/merch_1.jpg',
-                  text: 'RockLove Star Guardian "Hope" Locket'),
-              // Add more cardUtama widgets here
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
 }
 
 Widget SearchBar() {

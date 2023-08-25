@@ -89,9 +89,9 @@ class cardUtama extends StatelessWidget {
   }
 }
 
-Widget cardLimited({required String img, required String text}) {
+Widget cardLimited(
+    {required String img, required String text, required String price}) {
   return Container(
-    
     margin: EdgeInsets.only(right: 8),
     width: 175,
     height: 300,
@@ -127,7 +127,7 @@ Widget cardLimited({required String img, required String text}) {
               SizedBox(height: 12),
               Text(
                 '$text',
-                overflow:TextOverflow.ellipsis,
+                overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: TextStyle(
                   fontSize: 15,
@@ -140,12 +140,24 @@ Widget cardLimited({required String img, required String text}) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '\$10',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red),
+                  Row(
+                    children: [
+                      Text(
+                        '\$ ',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                      ),
+                      Text(
+                        '$price',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
                   ),
                   Icon(
                     Icons.favorite_border,
@@ -163,9 +175,8 @@ Widget cardLimited({required String img, required String text}) {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.only(topRight: Radius.circular(12))
-            ),
+                color: Colors.red,
+                borderRadius: BorderRadius.only(topRight: Radius.circular(12))),
             child: Text(
               'Limited Edition',
               style: TextStyle(

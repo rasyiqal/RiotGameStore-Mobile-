@@ -23,6 +23,7 @@ List<Widget> cardData = [
   cardLimited(
     img: 'assets/merch_1.jpg',
     text: 'High Noon Senna Gun Necklace',
+    price: '30.00'
   ),
   cardUtama(
     img: 'assets/merch_1.jpg',
