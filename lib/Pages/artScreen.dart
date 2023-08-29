@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_ver/components/card.dart';
 import 'package:mobile_ver/components/searhDelegate.dart';
+import 'package:mobile_ver/controller/FetchData.dart';
 
 class artScreen extends StatefulWidget {
   const artScreen({super.key});
@@ -19,27 +20,26 @@ final List<String> categories = [
   'Vehicle',
 ];
 
-List<Widget> cardData = [
-  cardLimited(
-    img: 'assets/merch_1.jpg',
-    text: 'High Noon Senna Gun Necklace',
-    price: '30.00'
-  ),
-  cardUtama(
-    img: 'assets/merch_1.jpg',
-    text: 'Convergence: A League of Legends Story Collectors Edition',
-  ),
-  cardUtama(
-    img: 'assets/merch_1.jpg',
-    text: 'RockLove Star Guardian "Hope" Locket',
-  ),
-  cardUtama(
-    img: 'assets/merch_1.jpg',
-    text: 'RockLove Star Guardian "Hope" Locket',
-  ),
-];
-
 class _artScreenState extends State<artScreen> {
+  late Future<List<dynamic>> _data;
+
+  @override
+  void initState() {
+    super.initState();
+    _data = fetchData();
+  }
+
+  Future<List<dynamic>> fetchData() async {
+    try {
+      List<dynamic> fetchedData = await FetchDataApi.fetchData();
+      return fetchedData;
+    } catch (e) {
+      // Handle error
+      print(e.toString());
+      return [];
+    }
+  }
+
   List<String> selectedCategories = [];
   @override
   Widget build(BuildContext context) {
@@ -62,52 +62,62 @@ class _artScreenState extends State<artScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(8),
-              margin: EdgeInsets.all(8),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: categories
-                      .map((category) => Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 4),
-                            child: FilterChip(
-                                label: Text(category),
-                                onSelected: (selected) {}),
-                          ))
-                      .toList(),
-                ),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(
+              top: 16,
+              left: 12,
+              bottom: 12,
+            ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: categories
+                    .map((category) => Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          child: FilterChip(
+                              label: Text(category),
+                              onSelected: (selected) {}),
+                        ))
+                    .toList(),
               ),
             ),
-            ListProduct(),
-          ],
-        ),
+          ),
+          FutureBuilder<List<dynamic>>(
+            future: fetchData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                List<dynamic> data = snapshot.data ?? [];
+                return Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, // Number of columns in the grid
+                      mainAxisSpacing: 8, // Spacing between items vertically
+                      childAspectRatio: (175/280), // Width / Height ratio of the cardLimited
+                    ),
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      Map<String, dynamic> item = data[index];
+                      String imageUrl =
+                          'http://10.0.2.2/phpcrud/${item['pekerjaan']}';
+                      return cardLimited(
+                        img: imageUrl,
+                        text: item['nama'],
+                        price: item['notelp'],
+                      );
+                    },
+                  ),
+                );
+              }
+            },
+          ),
+        ],
       ),
     );
   }
-}
-
-Container ListProduct() {
-  return Container(
-    padding: EdgeInsets.symmetric(
-      horizontal: 12,
-    ),
-    child: GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 8.0,
-        crossAxisSpacing: 8.0,
-        childAspectRatio: 0.6,
-      ),
-      itemCount: cardData.length,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return cardData[index];
-      },
-    ),
-  );
 }

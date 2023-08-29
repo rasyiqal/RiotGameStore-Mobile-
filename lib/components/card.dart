@@ -92,9 +92,12 @@ class cardUtama extends StatelessWidget {
 Widget cardLimited(
     {required String img, required String text, required String price}) {
   return Container(
-    margin: EdgeInsets.only(right: 8),
-    width: 175,
-    height: 300,
+    margin: EdgeInsets.only(
+      right: 12,
+      left: 12,
+      bottom: 8,
+    ),
+    
     decoration: BoxDecoration(
       border: Border.all(color: Colors.grey.shade300),
       color: Colors.white,
@@ -119,12 +122,12 @@ Widget cardLimited(
             children: [
               Container(
                 alignment: Alignment.center,
-                child: Image.asset(
+                child: Image.network(
                   "$img",
-                  height: 180,
+                  height: 220,
                 ),
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 0),
               Text(
                 '$text',
                 overflow: TextOverflow.ellipsis,

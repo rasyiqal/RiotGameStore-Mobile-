@@ -33,83 +33,62 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              CaroselBuild(),
-              OtherMenu(),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 8,
-                  left: 16,
-                  right: 16,
+      body: Column(
+        children: [
+          CaroselBuild(),
+          OtherMenu(),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 12,
+              horizontal: 16,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Upcoming',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Best Seller This Month',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'see all',
-                        style: TextStyle(
-                          color: Colors.red.shade700,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  ],
+                Text(
+                  'see all',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height,
-                child: Expanded(
-                  child: FutureBuilder<List<dynamic>>(
-                    future: fetchData(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        List<dynamic> data = snapshot.data ?? [];
-                        return GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, // Jumlah kolom dalam grid
-                            mainAxisSpacing:
-                                8, // Spasi antara item secara vertikal
-                            crossAxisSpacing:
-                                8, // Spasi antara item secara horizontal
-                            childAspectRatio:
-                                (175 / 300), // Lebar / Tinggi dari cardLimited
-                          ),
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            Map<String, dynamic> item = data[index];
-                             String imageUrl = 'http://10.0.2.2/phpcrud/upload/${item['C:/xampp/htdocs/phpcrud/upload']}';
-                            return cardLimited(
-                              img: imageUrl,
-                              text: item['nama'],
-                              price: item['notelp'],
-                            );
-                          },
-                        );
-                      }
+              ],
+            ),
+          ),
+          FutureBuilder<List<dynamic>>(
+            future: fetchData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                List<dynamic> data = snapshot.data ?? [];
+                return Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, // Number of columns in the grid
+                      mainAxisSpacing: 8, // Spacing between items vertically
+                      childAspectRatio: (175/280), // Width / Height ratio of the cardLimited
+                    ),
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      Map<String, dynamic> item = data[index];
+                      String imageUrl =
+                          'http://10.0.2.2/phpcrud/${item['pekerjaan']}';
+                      return cardLimited(
+                        img: imageUrl,
+                        text: item['nama'],
+                        price: item['notelp'],
+                      );
                     },
                   ),
-                ),
-              ),
-            ],
+                );
+              }
+            },
           ),
-        ),
+        ],
       ),
     );
   }
@@ -201,7 +180,7 @@ class OtherMenu extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 8),
-              Text('Cart', style: TextStyle(color: Colors.red)),
+              Text('Cart', style: TextStyle(color: Colors.white)),
             ],
           ),
           Column(

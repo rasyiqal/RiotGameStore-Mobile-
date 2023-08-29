@@ -1,79 +1,122 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_ver/components/card.dart';
-import 'package:mobile_ver/components/categories.dart';
+import 'package:mobile_ver/components/searhDelegate.dart';
+import 'package:mobile_ver/controller/FetchData.dart';
 
-class UpcomingScreen extends StatelessWidget {
+class UpcomingScreen extends StatefulWidget {
   const UpcomingScreen({super.key});
 
   @override
+  State<UpcomingScreen> createState() => _upcomingScreen();
+}
+
+final List<String> categories = [
+  'food',
+  'Fruits',
+  'Sports',
+  'Vehicle',
+  'Sports',
+  'Vehicle',
+];
+
+class _upcomingScreen extends State<UpcomingScreen> {
+  late Future<List<dynamic>> _data;
+
+  @override
+  void initState() {
+    super.initState();
+    _data = fetchData();
+  }
+
+  Future<List<dynamic>> fetchData() async {
+    try {
+      List<dynamic> fetchedData = await FetchDataApi.fetchData();
+      return fetchedData;
+    } catch (e) {
+      // Handle error
+      print(e.toString());
+      return [];
+    }
+  }
+
+  List<String> selectedCategories = [];
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 12,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red.shade400,
+        title: Text(
+          'Art',
+          style: TextStyle(),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Upcoming',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: MySearchDelegate(),
+              );
+            },
+            icon: const Icon(Icons.search),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(
+              top: 16,
+              left: 12,
+              bottom: 12,
             ),
-            Categories(),
-            SizedBox(height: 24),
-            SingleChildScrollView(
+            child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  cardLimited(
-                      img: 'assets/merch_1.jpg',
-                      text: 'High Noon Senna Gun Necklace',
-                      price: '30.00'
-                      ),
-                  cardUtama(
-                      img: 'assets/merch_1.jpg',
-                      text:
-                          'Convergence: A League of Legends Story Collectors Edition'),
-                  cardUtama(
-                      img: 'assets/merch_1.jpg',
-                      text: 'RockLove Star Guardian "Hope" Locket'),
-                  // Add more cardUtama widgets here
-                ],
+                children: categories
+                    .map((category) => Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          child: FilterChip(
+                              label: Text(category),
+                              onSelected: (selected) {}),
+                        ))
+                    .toList(),
               ),
             ),
-            SizedBox(height: 24),
-            Text(
-              'Summer Sale',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 24),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  cardUtama(
-                      img: 'assets/merch_1.jpg',
-                      text: 'Arcane x RockLove Firelight Ring'),
-                  cardLimited(
-                      img: 'assets/merch_1.jpg',
-                      text: 'High Noon Senna Gun Necklace',
-                      price: '30.00',
-                      ),
-                  // Add more cardUtama widgets here
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+          FutureBuilder<List<dynamic>>(
+            future: fetchData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                List<dynamic> data = snapshot.data ?? [];
+                return Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, // Number of columns in the grid
+                      mainAxisSpacing: 8, // Spacing between items vertically
+                      childAspectRatio: (175/280), // Width / Height ratio of the cardLimited
+                    ),
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      Map<String, dynamic> item = data[index];
+                      String imageUrl =
+                          'http://10.0.2.2/phpcrud/${item['pekerjaan']}';
+                      return cardLimited(
+                        img: imageUrl,
+                        text: item['nama'],
+                        price: item['notelp'],
+                      );
+                    },
+                  ),
+                );
+              }
+            },
+          ),
+        ],
       ),
     );
   }
