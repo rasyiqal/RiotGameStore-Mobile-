@@ -21,7 +21,6 @@ class _NavigationState extends State<Navigation> {
     return GetBuilder<NavbarController>(builder: (context) {
       return SafeArea(
         child: Scaffold(
-          
           body: IndexedStack(
             index: controller.tabIndex,
             children: const [
@@ -32,9 +31,9 @@ class _NavigationState extends State<Navigation> {
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xFF8A0707),
             currentIndex: controller.tabIndex,
-            selectedItemColor: Colors.red,
+            selectedItemColor: Color(0xFF8A0707),
             unselectedItemColor: Colors.grey,
             showUnselectedLabels: true,
             onTap: controller.changeTabIndex,

@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Map<String, dynamic> item = data[index];
                       String imageUrl =
                           'http://10.0.2.2/phpcrud/${item['pekerjaan']}';
-                      return cardLimited(
+                      return CardLimited(
                         img: imageUrl,
                         text: item['nama'],
                         price: item['notelp'],
