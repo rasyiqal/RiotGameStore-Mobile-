@@ -106,7 +106,6 @@ class CardLimited extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigasi ke halaman detail dengan mengirim data item yang sesuai
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => DetailPage(

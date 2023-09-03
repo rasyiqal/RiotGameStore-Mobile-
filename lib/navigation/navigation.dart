@@ -7,6 +7,7 @@ import 'package:mobile_ver/Pages/profileScreen.dart';
 import 'package:mobile_ver/Pages/UpcomingScreen.dart';
 import 'package:mobile_ver/controller/controller.dart';
 
+
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
 
@@ -31,15 +32,15 @@ class _NavigationState extends State<Navigation> {
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Color(0xFF8A0707),
+            type: BottomNavigationBarType.fixed,
             currentIndex: controller.tabIndex,
-            selectedItemColor: Color(0xFF8A0707),
-            unselectedItemColor: Colors.grey,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white,
             showUnselectedLabels: true,
             onTap: controller.changeTabIndex,
             items: [
               _bottombarItem(IconlyBold.home, 'Home'),
-              _bottombarItem(IconlyBold.chart, 'Art'),
+              _bottombarItem(IconlyBold.star, 'Art'),
               _bottombarItem(IconlyBold.chart, 'Upcoming'),
               _bottombarItem(IconlyBold.profile, 'Profile'),
             ],

@@ -101,36 +101,7 @@ class _CaroselBuildState extends State<CaroselBuild> {
               left: 12,
             ),
             color: Colors.transparent,
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Search...',
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 8,
-                      ),
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.notifications,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    // Aksi ketika tombol notifikasi ditekan
-                  },
-                ),
-              ],
-            ),
+            child: SearchWidget(),
           ),
         ),
         Positioned(
@@ -161,6 +132,48 @@ class _CaroselBuildState extends State<CaroselBuild> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class SearchWidget extends StatelessWidget {
+  const SearchWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'Search...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 8,
+                ),
+              ),
+            ),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.notifications,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // Aksi ketika tombol notifikasi ditekan
+            },
+          ),
+        ],
+      ),
     );
   }
 }

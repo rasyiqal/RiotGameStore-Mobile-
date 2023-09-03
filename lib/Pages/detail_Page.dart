@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ver/Pages/CheckoutPage.dart';
 
 class DetailPage extends StatelessWidget {
   final String img;
@@ -111,10 +112,10 @@ class DetailPage extends StatelessWidget {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5), // Warna shadow
+            color: Colors.grey.withOpacity(0.5),
             spreadRadius: 3, // Radius penyebaran shadow
             blurRadius: 3, // Radius blur shadow
-            offset: Offset(0, 1), // Offset dari shadow (x, y)
+            offset: Offset(0, 1), // Offset shadow (x, y)
           ),
         ]),
         child: Row(
@@ -146,15 +147,26 @@ class DetailPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Container(
-                height: 50,
-                color: Color(0xFF8A0707),
-                child: Center(
-                  child: Text(
-                    'Buat Pesanan',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CheckoutPage(
+                      img: img,
+                      text: text,
+                      price: price,
+                    ),
+                  ));
+                },
+                child: Container(
+                  height: 50,
+                  color: Color(0xFF8A0707),
+                  child: Center(
+                    child: Text(
+                      'Buat Pesanan',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

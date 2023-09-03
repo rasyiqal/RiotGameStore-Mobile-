@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           CaroselBuild(),
-          OtherMenu(),
+          //OtherMenu(),
           Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 12,
