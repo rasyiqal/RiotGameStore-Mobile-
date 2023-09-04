@@ -45,9 +45,9 @@ class _artScreenState extends State<artScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red.shade400,
+        backgroundColor: Color(0xFF8A0707),
         title: Text(
-          'Art',
+          'Futured',
           style: TextStyle(),
         ),
         actions: <Widget>[

@@ -37,33 +37,19 @@ class DetailPage extends StatelessWidget {
             SizedBox(height: 16),
             Container(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 textBaseline: TextBaseline.alphabetic,
                 children: [
-                  Expanded(
-                    child: Wrap(
-                      children: [
-                        Text(
-                          text
-                              .split(' ')
-                              .take(3)
-                              .join(' '), // Mengambil dua kata pertama
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Text(
-                          text
-                              .split(' ')
-                              .skip(3)
-                              .join(' '), // Mengambil sisanya
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
+                  Container(
+                    width: 200,
+                    child: Text(
+                      '$text',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      maxLines: 2,
                     ),
                   ),
                   Text(

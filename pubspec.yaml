@@ -42,7 +42,6 @@ dependencies:
   carousel_slider: ^4.2.1
   http: ^0.13.3
   sqflite: ^2.3.0
-  custom_navigation_bar: ^0.4.0
 
 dev_dependencies:
   flutter_test:

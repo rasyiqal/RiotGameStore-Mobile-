@@ -6,7 +6,7 @@ void main() {
   runApp(GetMaterialApp(
     theme: ThemeData(
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF8A0707), // Atur warna latar belakang BottomNavigationBar
+          backgroundColor: Color(0xFF8A0707),
         ),
       ),
     debugShowCheckedModeBanner: false,

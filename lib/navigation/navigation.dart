@@ -40,8 +40,8 @@ class _NavigationState extends State<Navigation> {
             onTap: controller.changeTabIndex,
             items: [
               _bottombarItem(IconlyBold.home, 'Home'),
-              _bottombarItem(IconlyBold.star, 'Art'),
-              _bottombarItem(IconlyBold.chart, 'Upcoming'),
+              _bottombarItem(IconlyBold.star, 'Futured'),
+              _bottombarItem(IconlyBold.buy, 'Chart'),
               _bottombarItem(IconlyBold.profile, 'Profile'),
             ],
           ),
