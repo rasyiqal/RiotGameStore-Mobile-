@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:mobile_ver/Pages/HomeScreen.dart';
-import 'package:mobile_ver/Pages/artScreen.dart';
+import 'package:mobile_ver/Pages/FuturedScreen.dart';
+import 'package:mobile_ver/Pages/collectibleScreen.dart';
 import 'package:mobile_ver/Pages/profileScreen.dart';
-import 'package:mobile_ver/Pages/UpcomingScreen.dart';
+import 'package:mobile_ver/Pages/ChartScreen.dart';
 import 'package:mobile_ver/controller/controller.dart';
 
 
@@ -26,8 +27,9 @@ class _NavigationState extends State<Navigation> {
             index: controller.tabIndex,
             children: const [
               HomeScreen(),
-              artScreen(),
-              UpcomingScreen(),
+              FuturedScreen(),
+              ChartScreen(),
+              CollectibleScreen(),
               profileScreen(),
             ],
           ),
@@ -35,13 +37,14 @@ class _NavigationState extends State<Navigation> {
             type: BottomNavigationBarType.fixed,
             currentIndex: controller.tabIndex,
             selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white,
-            showUnselectedLabels: true,
+            unselectedItemColor: const Color.fromRGBO(255, 255, 255, 1), //0xFF8A0707
+            showUnselectedLabels: false,
             onTap: controller.changeTabIndex,
             items: [
               _bottombarItem(IconlyBold.home, 'Home'),
               _bottombarItem(IconlyBold.star, 'Futured'),
               _bottombarItem(IconlyBold.buy, 'Chart'),
+              _bottombarItem(IconlyBold.category, 'Collectible'),
               _bottombarItem(IconlyBold.profile, 'Profile'),
             ],
           ),

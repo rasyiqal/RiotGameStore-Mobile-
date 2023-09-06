@@ -1,14 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_ver/components/card.dart';
 import 'package:mobile_ver/components/searhDelegate.dart';
 import 'package:mobile_ver/controller/FetchData.dart';
 
-class artScreen extends StatefulWidget {
-  const artScreen({super.key});
+class ChartScreen extends StatefulWidget {
+  const ChartScreen({super.key});
 
   @override
-  State<artScreen> createState() => _artScreenState();
+  State<ChartScreen> createState() => _chartScreen();
 }
 
 final List<String> categories = [
@@ -20,7 +19,7 @@ final List<String> categories = [
   'Vehicle',
 ];
 
-class _artScreenState extends State<artScreen> {
+class _chartScreen extends State<ChartScreen> {
   late Future<List<dynamic>> _data;
 
   @override
@@ -45,9 +44,9 @@ class _artScreenState extends State<artScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF8A0707),
+        backgroundColor: Colors.red.shade400,
         title: Text(
-          'Futured',
+          'Art',
           style: TextStyle(),
         ),
         actions: <Widget>[

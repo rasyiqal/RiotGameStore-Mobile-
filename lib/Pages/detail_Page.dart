@@ -20,79 +20,118 @@ class DetailPage extends StatelessWidget {
         backgroundColor: Color(0xFF8A0707),
         automaticallyImplyLeading: true,
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              child: Image.network(
-                img,
-                height: 330,
-                width: double.infinity,
-                fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(top: 24,),
+                child: Image.network(
+                  img,
+                  height: 330,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  Container(
-                    width: 200,
-                    child: Text(
-                      '$text',
+              SizedBox(height: 16),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 24,
+                  
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Container(
+                      width: 200,
+                      child: Text(
+                        '$text',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        maxLines: 2,
+                      ),
+                    ),
+                    Text(
+                      '\$ $price',
                       style: TextStyle(
                         fontSize: 20,
+                        color: Colors.black,
                         fontWeight: FontWeight.w700,
                       ),
-                      maxLines: 2,
                     ),
-                  ),
-                  Text(
-                    '\$ $price',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            // Content
-            SizedBox(
-              height: 32,
-            ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Futured',
-                    style: TextStyle(
-                        fontSize: 20,
+              SizedBox(height: 24),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey.shade800,
+                      width: 0.5,
+                    ),
+                  ),
+                ),
+              ),
+              // Content
+              SizedBox(
+                height: 12,
+              ),
+              Container(
+                padding: EdgeInsets.only(right: 24, left: 24, bottom: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Description',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                      style: TextStyle(
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black),
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    'asdasdasdasdasdasdasdasdasdasdsadasdasdasdasd asdasdasdasdasdasd asdasd asds asdasd',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
+                        color: Colors.grey.shade700,
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      'Features',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(

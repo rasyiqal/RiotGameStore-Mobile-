@@ -117,10 +117,8 @@ class CardLimited extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(
-          right: 12,
-          left: 12,
-          bottom: 8,
+        margin: EdgeInsets.symmetric(
+          horizontal: 4,
         ),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.shade300),

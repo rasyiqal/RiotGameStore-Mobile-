@@ -33,14 +33,14 @@ class MySearchDelegate extends SearchDelegate {
           }
         },
       ),
-    ]; // Implementasi yang sesuai untuk aksi pencarian (misalnya tombol clear)
+    ]; 
   }
 
   @override
   Widget buildResults(BuildContext context) {
     return Center(
       child: Text(query),
-    ); // Implementasi yang sesuai untuk hasil pencarian
+    ); //searching result
   }
 
   @override
