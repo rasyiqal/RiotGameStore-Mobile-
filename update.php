@@ -9,18 +9,18 @@ if (isset($_GET['id'])) {
         // This part is similar to the create.php, but instead we update a record and not insert
         $id = isset($_POST['id']) ? $_POST['id'] : NULL;
         $nama = isset($_POST['nama']) ? $_POST['nama'] : '';
-        $email = isset($_POST['email']) ? $_POST['email'] : '';
-        $notelp = isset($_POST['notelp']) ? $_POST['notelp'] : '';
-        $pekerjaan = $_FILES['pekerjaan']['name'];
+        $jenis = isset($_POST['jenis']) ? $_POST['jenis'] : '';
+        $harga = isset($_POST['harga']) ? $_POST['harga'] : '';
+        $gambar = $_FILES['gambar']['name'];
 
         // Specify the directory to save the uploaded files
         $uploadDir = 'C:/xampp/htdocs/phpcrud/upload/';
-        $uploadedFileName = $uploadDir . basename($_FILES['pekerjaan']['name']);
-        move_uploaded_file($_FILES['pekerjaan']['tmp_name'], $uploadedFileName);
+        $uploadedFileName = $uploadDir . basename($_FILES['gambar']['name']);
+        move_uploaded_file($_FILES['gambar']['tmp_name'], $uploadedFileName);
 
         // Update the record
-        $stmt = $pdo->prepare('UPDATE kontak SET id = ?, nama = ?, email = ?, notelp = ?, pekerjaan = ? WHERE id = ?');
-        $stmt->execute([$id, $nama, $email, $notelp, $pekerjaan, $_GET['id']]);
+        $stmt = $pdo->prepare('UPDATE kontak SET id = ?, nama = ?, jenis = ?, harga = ?, gambar = ? WHERE id = ?');
+        $stmt->execute([$id, $nama, $jenis, $harga, $gambar, $_GET['id']]);
         $msg = 'Updated Successfully!';
     }
     // Get the contact from the contacts table
@@ -44,12 +44,12 @@ if (isset($_GET['id'])) {
         <label for="nama">Nama</label>
         <input type="text" name="id" value="<?=$contact['id']?>" id="id">
         <input type="text" name="nama" value="<?=$contact['nama']?>" id="nama">
-        <label for="email">Email</label>
-        <label for="notelp">No. Telp</label>
-        <input type="text" name="email" value="<?=$contact['email']?>" id="email">
-        <input type="text" name="notelp" value="<?=$contact['notelp']?>" id="notelp">
-        <label for="pekerjaan">Pekerjaan</label>
-        <input type="file" name="pekerjaan" id="pekerjaan">
+        <label for="jenis">jenis</label>
+        <label for="harga">No. Telp</label>
+        <input type="text" name="jenis" value="<?=$contact['jenis']?>" id="jenis">
+        <input type="text" name="harga" value="<?=$contact['harga']?>" id="harga">
+        <label for="gambar">gambar</label>
+        <input type="file" name="gambar" id="gambar">
         <input type="submit" value="Update">
     </form>
     <?php if ($msg): ?>

@@ -6,7 +6,7 @@ $msg = '';
 // Check if the contact ID exists
 if (isset($_GET['id'])) {
     // Select the record that is going to be deleted
-    $stmt = $pdo->prepare('SELECT * FROM kontak WHERE id = ?');
+    $stmt = $pdo->prepare('SELECT * FROM data WHERE id = ?');
     $stmt->execute([$_GET['id']]);
     $contact = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$contact) {
@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
         }
         
         // Delete the record from the database
-        $stmt = $pdo->prepare('DELETE FROM kontak WHERE id = ?');
+        $stmt = $pdo->prepare('DELETE FROM data WHERE id = ?');
         $stmt->execute([$_GET['id']]);
         $msg = 'You have deleted the contact!';
     } elseif (isset($_GET['confirm']) && $_GET['confirm'] == 'no') {

@@ -6,20 +6,20 @@ $msg = '';
 if (!empty($_POST)) {
     $id = isset($_POST['id']) && !empty($_POST['id']) && $_POST['id'] != 'auto' ? $_POST['id'] : NULL;
     $nama = isset($_POST['nama']) ? $_POST['nama'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $notelp = isset($_POST['notelp']) ? $_POST['notelp'] : '';
-    $pekerjaan = isset($_FILES['pekerjaan']) ? $_FILES['pekerjaan'] : NULL;
+    $jenis = isset($_POST['jenis']) ? $_POST['jenis'] : '';
+    $harga = isset($_POST['harga']) ? $_POST['harga'] : '';
+    $gambar = isset($_FILES['gambar']) ? $_FILES['gambar'] : NULL;
 
     // Handle image upload and save to appropriate directory
     $uploadDir = 'upload/';
     $uploadedFileName = '';
-    if ($pekerjaan) {
-        $uploadedFileName = $uploadDir . basename($pekerjaan['name']);
-        move_uploaded_file($pekerjaan['tmp_name'], $uploadedFileName);
+    if ($gambar) {
+        $uploadedFileName = $uploadDir . basename($gambar['name']);
+        move_uploaded_file($gambar['tmp_name'], $uploadedFileName);
     }
 
-    $stmt = $pdo->prepare('INSERT INTO kontak VALUES (?, ?, ?, ?, ?)');
-    $stmt->execute([$id, $nama, $email, $notelp, $uploadedFileName]);
+    $stmt = $pdo->prepare('INSERT INTO data VALUES (?, ?, ?, ?, ?)');
+    $stmt->execute([$id, $nama, $jenis, $harga, $uploadedFileName]);
     $msg = 'Created Successfully!';
 }
 ?>
@@ -33,12 +33,12 @@ if (!empty($_POST)) {
         <label for="nama">Nama</label>
         <input type="text" name="id" value="auto" id="id">
         <input type="text" name="nama" id="nama">
-        <label for="email">Jenis Item</label>
-        <label for="notelp">Harga</label>
-        <input type="text" name="email" id="email">
-        <input type="text" name="notelp" id="notelp">
-        <label for="pekerjaan">Upload Gambar</label>
-        <input type="file" name="pekerjaan" id="pekerjaan">
+        <label for="jenis">Jenis Item</label>
+        <label for="harga">Harga</label>
+        <input type="text" name="jenis" id="jenis">
+        <input type="text" name="harga" id="harga">
+        <label for="gambar">Upload Gambar</label>
+        <input type="file" name="gambar" id="gambar">
         <input type="submit" value="Create">
     </form>
     <?php if ($msg): ?>

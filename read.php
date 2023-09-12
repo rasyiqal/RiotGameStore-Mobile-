@@ -9,7 +9,7 @@ $records_per_page = 5;
 
 
 // Prepare the SQL statement and get records from our contacts table, LIMIT will determine the page
-$stmt = $pdo->prepare('SELECT * FROM kontak ORDER BY id LIMIT :current_page, :record_per_page');
+$stmt = $pdo->prepare('SELECT * FROM data ORDER BY id LIMIT :current_page, :record_per_page');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
 $stmt->execute();
@@ -18,7 +18,7 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 // Get the total number of contacts, this is so we can determine whether there should be a next and previous button
-$num_contacts = $pdo->query('SELECT COUNT(*) FROM kontak')->fetchColumn();
+$num_contacts = $pdo->query('SELECT COUNT(*) FROM data')->fetchColumn();
 ?>
 
 
@@ -43,11 +43,11 @@ $num_contacts = $pdo->query('SELECT COUNT(*) FROM kontak')->fetchColumn();
             <tr>
                 <td><?=$contact['id']?></td>
                 <td><?=$contact['nama']?></td>
-                <td><?=$contact['email']?></td>
-                <td><?=$contact['notelp']?></td>
+                <td><?=$contact['jenis']?></td>
+                <td><?=$contact['harga']?></td>
                 <td>
-                    <?php if ($contact['pekerjaan'] !== ''): ?>
-                        <img src="<?=$contact['pekerjaan']?>" alt="" style="width: 100px; height: auto;">
+                    <?php if ($contact['gambar'] !== ''): ?>
+                        <img src="<?=$contact['gambar']?>" alt="" style="width: 100px; height: auto;">
                     <?php else: ?>
                         -
                     <?php endif; ?>
