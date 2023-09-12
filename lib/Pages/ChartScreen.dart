@@ -103,11 +103,11 @@ class _chartScreen extends State<ChartScreen> {
                     itemBuilder: (context, index) {
                       Map<String, dynamic> item = data[index];
                       String imageUrl =
-                          'http://10.0.2.2/phpcrud/${item['pekerjaan']}';
+                          'http://10.0.2.2/LocalAPi/RiotGameStore-Mobile-/${item['gambar']}';
                       return CardLimited(
                         img: imageUrl,
                         text: item['nama'],
-                        price: item['notelp'],
+                        price: item['harga'],
                       );
                     },
                   ),
