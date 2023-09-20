@@ -9,14 +9,14 @@ import 'package:mobile_ver/Pages/ChartScreen.dart';
 import 'package:mobile_ver/controller/controller.dart';
 
 
-class Navigation extends StatefulWidget {
-  const Navigation({super.key});
+class NavigationPage extends StatefulWidget {
+  const NavigationPage({super.key});
 
   @override
-  State<Navigation> createState() => _NavigationState();
+  State<NavigationPage> createState() => _NavigationPageState();
 }
 
-class _NavigationState extends State<Navigation> {
+class _NavigationPageState extends State<NavigationPage> {
   final controller = Get.put(NavbarController());
   @override
   Widget build(BuildContext context) {

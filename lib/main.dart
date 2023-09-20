@@ -10,7 +10,7 @@ void main() {
         ),
       ),
     debugShowCheckedModeBanner: false,
-    initialRoute: AppPage.getNavbar(),
+    initialRoute: AppPage.getLogin(),
     getPages: AppPage.routes,
   ));
 }
